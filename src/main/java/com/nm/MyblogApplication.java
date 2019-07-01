@@ -6,6 +6,7 @@ import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
+//6666
 @ServletComponentScan//使用filter需要该扫描
 @EnableCaching//开启缓存 指定redis需加依赖并配置
 public class MyblogApplication {

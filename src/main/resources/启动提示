@@ -1,0 +1,9 @@
+linux环境部署：1mysql（数据库） 2.tomcat（存图片/file-server/upload/）3.elasticresearch（站内检索） 4.redis（开启缓存）
+---------------------------------------------------------------------------------------------------
+1.开发与生产环境切换所需修改处
+    application-dev.properties下的mysql连接配置    
+	com.nm.utils包下Const图片地址
+	application.properties文件中redis地址
+	elasticresearch部署在本地默认启动不需要
+2.启动地址 http://localhost:8081/
+3.bug:全文检索未分页

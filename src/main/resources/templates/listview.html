@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>阅读原文</title>
+<meta name="keywords" content="cms" />
+<meta name="description" content="关键词和tags标签自动同步方法" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../front/css/base.css" rel="stylesheet">
+<link href="../front/css/index.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="../admin/css/bootstrap.min.css">
+</head>
+<body>
+
+<header>
+
+  <nav>
+    <ul>
+     	<li><a href="/">网站首页</a></li>
+			 <#list (categoryList)! as cate>
+				<li><a href="/list?page=1&categoryId=${(cate.categoryId)!}&categoryName=${(cate.categoryName)!}">${(cate.categoryName)!}</a></li>
+				</#list>
+				<li><a href="/message">在线留言</a></li>
+				<li><a href="/back/index">后台管理</a></li>
+    </ul>
+  </nav>
+</header>
+<article>
+  <div class="leftbox">
+    <div class="infos">
+      <div class="newsview">
+        <h2 class="intitle">您现在的位置是：<a href="#">${(article.categoryName)!}</a>&nbsp;>&nbsp;<a href="#">阅读原文</a></h2>
+        <h3 class="news_title">${(article.articleTitle)!}</h3>
+        <div class="news_author"><span class="au01"></span><span class="au02">${(article.articleTime?string('yyyy-MM-dd hh:mm:ss'))!}</span></div>
+       
+        <div class="news_infos">
+		      ${(article.articleContent)!}
+        </div>
+        
+        <!-- 文章评论 -->
+        <div>
+        	<h3>文章评论</h3>
+			<hr />
+			<div style="color: red;font-size: 16px" align="center">${(tip)!}</div>
+			<form class="form-horizontal" action="/addComment" method="post">
+				<div class="form-group">
+				
+					<div class="col-sm-8">
+					<input type="hidden" name="articleId" value="${(article.articleId)!}">
+						<input type="text" class="form-control" name="userName" placeholder="请输入姓名">
+					</div>
+				</div>
+				<div class="form-group">
+				
+					<div class="col-sm-8">
+						<textarea rows="5" cols="" class="form-control"name="mContent" placeholder="请输入评论内容"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-sm-10">
+						<button type="submit" class="btn btn-info"> 提 交 </button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<hr />
+		<div class="form-group">
+		<#list (commentList)! as mContent>
+		<blockquote>
+  			<p>${(comment.messageContent)!}
+  			<br/>
+  			<small>姓名：${(mContent.userName)!}  留言时间：${(mContent.mTime?string('yyyy-MM-dd hh:mm:ss'))!}</small></p>
+		</blockquote>
+</#list>
+		</div>
+        
+      </div>
+      <div class="share">分享：</div>
+    </div>
+    <div class="nextinfo">
+    </div>
+
+  </div>
+  <div class="rightbox">
+    <div class="search">
+     <form action="/es" method="post" name="searchform" id="searchform">
+					<input name=""keywords"" id="keyboard" class="input_text"
+						placeholder="请输入搜索关键字" style="color: rgb(153, 153, 153);" type="text"> 
+						 <input name="Submit" class="input_submit" value="搜索" type="submit">
+				</form>
+    </div>
+
+    <div class="paihang">
+      <h2 class="ab_title"><a href="/">站长推荐</a></h2>
+      <ul>
+           <#list (articlesterList)! as aster>
+					<li><b><a href="/listView/${(aster.articleId)!}"
+							target="_blank">${(aster.articleTitle)!}</a></b>
+						<p>
+						<#if aster.articleContent?length gt 50>
+									${aster.articleContent?substring(0,50)} 
+								<#else>
+									${aster.articleContent!} 
+								</#if>
+						</p></li>
+			</#list>
+      </ul>
+      <div class="ad"></div>
+    </div>
+
+  </div>
+</article>
+<footer>
+  <p>Design by <a href="#>个人博客</a> <a href="/">真香</a></p>
+</footer><script src="../js/61a9ee23bfbe484da195456aea8b6f8b.js"></script></body>
+</html>

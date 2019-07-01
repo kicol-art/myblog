@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>栏目列表</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../front/css/base.css" rel="stylesheet">
+<link href="../front/css/index.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="../admin/css/bootstrap.min.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <ul>
+    <li><a href="/">网站首页</a></li>
+      <#list (categoryList)! as cate>
+				<li><a href="/list?page=1&categoryId=${(cate.categoryId)!}&categoryName=${(cate.categoryName)!}">${(cate.categoryName)!}</a></li>
+				</#list>
+				<li><a href="/message">在线留言</a></li>
+				<li><a href="/back/index">后台管理</a></li>
+    </ul>
+  </nav>
+</header>
+<article>
+  <div class="leftbox">
+    <div class="newblogs">
+      <h2 class="hometitle">${(article.categoryName)!}</h2>
+      <ul>
+
+<#list (pageBean.list)! as art>
+        <li>
+          <h3 class="blogtitle"><a href="/listView/${(art.articleId)!}" target="_blank" >${(art.articleTitle)!}</a></h3>
+          <div class="bloginfo"><span class="blogpic"><a href="/listView/${(art.articleId)!}" title="${(art.articleTitle)!}"><img src="${(art.articleImg)!}" /></a></span>
+            <p>
+            <#if art.articleContent?length gt 100>
+									${art.articleContent?substring(0,100)} 
+								<#else>
+									${art.articleContent!} 
+								</#if>
+            </p>
+          </div>
+          <div class="autor"><span class="lm f_l"><a href="/list?page=1&categoryId=${(art.categoryId)!}&categoryName=${(art.categoryName)!}" title="${(art.categoryName)!}" target="_blank"  class="classname">${(art.categoryName)!}</a></span><span class="dtime f_l">${(art.articleTime?string('yyyy-MM-dd hh:mm:ss'))!}</span><span class="f_r"><a href="/listView/${(art.articleId)!}" class="more">阅读原文>></a></span></div>
+        </li>
+
+</#list>
+      </ul>
+共有${pageBean.allRow}条记录，当前是第${pageBean.currentPage}/${pageBean.totalPage}页
+
+			<ul class="pager">
+				<#if pageBean.currentPage==1> 第一页 上一页 <#else>
+				<li><a
+					href="/list?page=1&categoryId=${(article.categoryId)!}&categoryName=${(article.categoryName)!}">第一页</a></li>
+				<li><a
+					href="/list?page=${pageBean.currentPage-1}&categoryId=${(article.categoryId)!}&categoryName=${(article.categoryName)!}">上一页</a></li></#if>
+				<#if pageBean.currentPage== pageBean.totalPage> 下一页 最末页 <#else>
+				<li><a
+					href="/list?page=${pageBean.currentPage+1}&categoryId=${(article.categoryId)!}&categoryName=${(article.categoryName)!}">下一页</a></li>
+				<li><a
+					href="/list?page=${pageBean.totalPage}&categoryId=${(article.categoryId)!}&categoryName=${(article.categoryName)!}">最末页</a></li></#if>
+			</ul>
+			
+		    </div>
+  </div>
+  <div class="rightbox">
+    <div class="search">
+      <form action="/es" method="post" name="searchform" id="searchform">
+					<input name=""keywords"" id="keyboard" class="input_text"
+						placeholder="请输入搜索关键字" style="color: rgb(153, 153, 153);" type="text"> 
+						 <input name="Submit" class="input_submit" value="搜索" type="submit">
+				</form>
+    </div>
+    <div class="paihang">
+      <h2 class="ab_title"><a href="/">店长推荐</a></h2>
+      <ul>
+       <#list (articlesterList)! as aster>
+					<li><b><a href="/listView/${(aster.articleId)!}"
+							target="_blank">${(aster.articleTitle)!}</a></b>
+						<p>
+						<#if aster.articleContent?length gt 50>
+									${aster.articleContent?substring(0,50)} 
+								<#else>
+									${aster.articleContent!} 
+								</#if>
+						</p></li>
+			</#list>
+      </ul>
+      <div class="ad"><img src="../front/picture/96bc624d902bac8be7d6641388151be2.jpg" width="280" height="93" ></div>
+    </div>
+
+  
+  </div>
+</article>
+<footer>
+  <p>Design by <a href="http://www.baidu.com">个人博客</a> <a href="/">北美ICP备</a></p>
+</footer>
+</body>
+</html>
+
+

@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../front/css/base.css" rel="stylesheet">
+<link href="../front/css/index.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="../admin/css/bootstrap.min.css">
+
+
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<header>
+				<nav class="nav default">
+					<ul>
+						<li class="nav-item active"><a href="/" >网站首页</a></li>
+						<#list (categoryList)! as cate>
+						<li class="nav-item"><a
+							href="/list?page=1&categoryId=${(cate.categoryId)!}&categoryName=${(cate.categoryName)!}">${(cate.categoryName)!}</a></li>
+						</#list>
+						<li class="nav-item"><a href="/message">在线留言</a></li>
+						<li class="nav-item"><a href="/back/index">后台管理</a></li>
+					</ul>
+				</nav>
+			</header>
+			<article>
+				<div class="pics">
+					<ul>
+						<li class="p1"><a href="../light/light.html"><img
+								src="../front/picture/42d76eafa6495d9647a4fd245201f56c.jpg"></a></li>
+						<li class="p2"><a href="../love/love.html"><img
+								src="../front/picture/c9668d65657bc41b77f6834984538979.jpg"></a></li>
+						<li class="p3"><a href="../light/snow.html"><img
+								src="../front/picture/15025aa222e4bf3b449336ca058aefd1.jpg"></a></li>
+					</ul>
+				</div>
+				<div class="sleftbox">
+					<div class="newblogs">
+						<h2 class="hometitle">最新文章</h2>
+						<ul>
+							<#list (newArticles)! as art>
+							<li>
+								<h3 class="blogtitle">
+									<a href="/listView/${(art.articleId)!}" target="_blank">${(art.articleTitle)!}</a>
+								</h3>
+								<div class="bloginfo">
+									<span class="blogpic"><a
+										href="listView/${(art.articleId)!}"
+										title="${(art.articleTitle)!}"><img
+											src="${(art.articleImg)!}" alt="${(art.articleImg)!}" /></a></span>
+									<p>
+										<#if art.articleContent?length gt 120>
+										${(art.articleContent?substring(0,120))!} <#else>
+										${(art.articleContent)!} </#if>
+									</p>
+								</div>
+								<div class="autor">
+									<span class="lm f_l"><a
+										href="/list?page=1&categoryId=${(art.categoryId)!}&categoryName=${(art.categoryName)!}"
+										title="css3" target="_blank" class="classname">${(art.categoryName)!}</a></span><span
+										class="dtime f_l">${(art.articleTime?string('yyyy-MM-dd
+										hh:mm:ss'))!}</span><span class="f_r"><a
+										href="listView/${(art.articleId)!}" class="more">阅读原文>></a></span>
+								</div>
+							</li>
+							</#list>
+						</ul>
+					</div>
+				</div>
+				<div class="srightbox">
+					<div class="aboutme">
+						<h2 class="ab_title">关于我</h2>
+						<div class="avatar">
+							<a href="../light/light.html"><img
+								src="../front/picture/b04.jpg" /></a>
+						</div>
+						<div class="ab_con">
+							<p>网名：hello | world</p>
+							<p>职业：要饭</p>
+						</div>
+					</div>
+					<div class="search">
+						<form action="/es" method="post" name="searchform" id="searchform">
+							<input name="keywords" id="keyboard" class="input_text"
+								placeholder="请输入搜索关键字" style="color: rgb(153, 153, 153);"
+								type="text"> <input name="Submit" class="input_submit"
+								value="搜索" type="submit">
+						</form>
+					</div>
+					<div class="paihang">
+						<h2 class="ab_title">
+							<a href="#">站长推荐</a>
+						</h2>
+						<ul>
+							<#list (articlesterList)! as aster>
+							<li><b><a href="/listView/${(aster.articleId)!}"
+									target="_blank">${(aster.articleTitle)!}</a></b>
+								<p>
+									<#if aster.articleContent?length gt 50>
+									${(aster.articleContent?substring(0,50))!} <#else>
+									${(aster.articleContent)!} </#if>
+								</p></li>
+							</#list>
+						</ul>
+						<div class="ad">
+							<img src="../front/picture/96bc624d902bac8be7d6641388151be2.jpg"
+								width="280" height="93">
+						</div>
+					</div>
+					<div class="ad">
+						<p>
+							<a href="https://lol.qq.com/">友情链接</a>
+						</p>
+					</div>
+
+				</div>
+			</article>
+		</div>
+	</div>
+	<footer>
+		<p>
+			Design by <a href="../love/love.html">大魔王</a> <a
+				href="../love/love.html">备案是不可能的这辈子都不能的</a>
+		</p>
+	</footer>
+</body>
+</html>

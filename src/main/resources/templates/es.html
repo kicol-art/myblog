@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>个人博客</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="../front/css/base.css" rel="stylesheet">
+<link href="../front/css/index.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="../admin/css/bootstrap.min.css">
+</head>
+<body>
+
+	<header>
+		<nav>
+			<ul>
+				<li><a href="/">网站首页</a></li>
+			 <#list (categoryList)! as cate>
+				<li><a href="/list?page=1&categoryId=${(cate.categoryId)!}&categoryName=${(cate.categoryName)!}">${(cate.categoryName)!}</a></li>
+				</#list>
+				<li><a href="/message">在线留言</a></li>
+				<li><a href="/back/index">后台管理</a></li>
+			</ul>
+		</nav>
+	</header>
+	<article>
+		<div class="pics">
+			<ul>
+				<li><img
+					src="../front/picture/42d76eafa6495d9647a4fd245201f56c.jpg"></li>
+				<li><img
+					src="../front/picture/c9668d65657bc41b77f6834984538979.jpg"></li>
+				<li><img
+					src="../front/picture/15025aa222e4bf3b449336ca058aefd1.jpg"></li>
+			</ul>
+		</div>
+		<div class="sleftbox">
+			<div class="newblogs">
+				<h2 class="hometitle">全文检索结果</h2>
+				<ul>
+					<#list (esList)! as art>
+					<li>
+						<h3 class="blogtitle">
+							<a href="/listView/${(art.articleId)!}" target="_blank">${(art.articleTitle)!}</a>
+						</h3>
+						<div class="bloginfo">
+							<span class="blogpic"><a
+								href="listView/${(art.articleId)!}"
+								title="${(art.articleTitle)!}"><img width="300" height="450"
+									src="${(art.articleImg)!}" alt="${(art.articleImg)!}"  /></a></span>
+							<p>
+								<#if art.articleContent?length gt 100>
+									${(art.articleContent?substring(0,100))!} 
+								<#else>
+									${(art.articleContent)!} 
+								</#if>
+							</p>
+						</div>
+						<div class="autor">
+							<span class="lm f_l"></span><span
+								class="dtime f_l">${(art.articleTime?string('yyyy-MM-dd hh:mm:ss'))!}</span><span class="f_r"><a href="listView/${(art.articleId)!}" class="more">阅读原文>></a></span>
+						</div>
+					</li>
+					</#list>
+				</ul>
+			</div>
+		</div>
+		<div class="srightbox">
+			<div class="aboutme">
+				<h2 class="ab_title">关于我</h2>
+				<div class="avatar">
+					<img src="../front/picture/b04.jpg" />
+				</div>
+				<div class="ab_con">
+					<p>网名：hello | world</p>
+					<p>职业：要饭</p>
+				</div>
+			</div>
+			<div class="search">
+				<form action="/es" method="post" name="searchform" id="searchform">
+					<input name="keywords" id="keyboard" class="input_text"
+						placeholder="请输入搜索关键字" style="color: rgb(153, 153, 153);" type="text"> 
+						 <input name="Submit" class="input_submit" value="搜索" type="submit">
+				</form>
+			</div>
+			<div class="paihang">
+				<h2 class="ab_title">
+					<a href="#">站长推荐</a>
+				</h2>
+				<ul>
+				<#list (articlesterList)! as aster>
+					<li><b><a href="/listView/${(aster.articleId)!}"
+							target="_blank">${(aster.articleTitle)!}</a></b>
+						<p>
+						<#if aster.articleContent?length gt 50>
+									${aster.articleContent?substring(0,50)} 
+								<#else>
+									${aster.articleContent!} 
+								</#if>
+						</p></li>
+			</#list>
+				</ul>
+				<div class="ad">
+					<img src="../front/picture/96bc624d902bac8be7d6641388151be2.jpg" width="280" height="93" >
+				</div>
+			</div>
+
+
+		</div>
+	</article>
+	<footer>
+		<p>
+			Design by <a href="#">kicol的个人博客</a> <a href="#">北美ICP备</a>
+		</p>
+	</footer>
+</body>
+</html>
